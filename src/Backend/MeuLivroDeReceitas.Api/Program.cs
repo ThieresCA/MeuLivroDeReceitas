@@ -1,6 +1,9 @@
 using FluentMigrator.Runner;
 using MeuLivroDeReceitas.Infrastructure.Data;
+using MeuLivroDeReceitas.Infrastructure.Migrations;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations.Internal;
+using System.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +23,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.MigrationDB();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
@@ -30,9 +35,14 @@ app.Run();
 
 static void ConfigureServices(IServiceCollection services, IConfiguration Configuration)
 {
+    var connectionString = Configuration.GetConnectionString("MeuLivroDeReceitasDb");
 
     services.AddDbContext<MeuLivroDeReceitasContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("MeuLivroDeReceitasDb"), builder =>
+                options.UseSqlServer(connectionString, builder =>
                     builder.MigrationsAssembly("MeuLivroDeReceitas.Infrastructure")));
 
+    services.AddFluentMigratorCore().ConfigureRunner(configure =>
+        configure.AddSqlServer()
+        .WithGlobalConnectionString(connectionString).ScanIn(typeof(MigrationExtension).Assembly).For.All()
+        );
 }

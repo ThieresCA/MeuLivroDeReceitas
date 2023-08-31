@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MeuLivroDeReceitas.Infrastructure.Data
+namespace MeuLivroDeReceitas.Infrastructure.Migrations
 {
     public static class MigrationExtension
     {

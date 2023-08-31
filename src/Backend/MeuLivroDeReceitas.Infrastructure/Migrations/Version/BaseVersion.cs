@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MeuLivroDeReceitas.Infrastructure.Data.Version
+namespace MeuLivroDeReceitas.Infrastructure.Migrations.Version
 {
     public class BaseVersion
     {

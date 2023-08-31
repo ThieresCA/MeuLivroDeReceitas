@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MeuLivroDeReceitas.Infrastructure.Data.Version
+namespace MeuLivroDeReceitas.Infrastructure.Migrations.Version
 {
     [Migration(1, "Cria a tabela usuário")]
     public class Version0000001 : Migration
