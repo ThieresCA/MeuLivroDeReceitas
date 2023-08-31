@@ -1,3 +1,4 @@
+using FluentMigrator.Runner;
 using MeuLivroDeReceitas.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,4 +34,5 @@ static void ConfigureServices(IServiceCollection services, IConfiguration Config
     services.AddDbContext<MeuLivroDeReceitasContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("MeuLivroDeReceitasDb"), builder =>
                     builder.MigrationsAssembly("MeuLivroDeReceitas.Infrastructure")));
+
 }
