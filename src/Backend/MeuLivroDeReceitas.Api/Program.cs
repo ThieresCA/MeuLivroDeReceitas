@@ -1,5 +1,7 @@
 using FluentMigrator.Runner;
+using MeuLivroDeReceitas.Domain.Repository;
 using MeuLivroDeReceitas.Infrastructure.Data;
+using MeuLivroDeReceitas.Infrastructure.Data.Repository;
 using MeuLivroDeReceitas.Infrastructure.Migrations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations.Internal;
@@ -45,4 +47,8 @@ static void ConfigureServices(IServiceCollection services, IConfiguration Config
         configure.AddSqlServer()
         .WithGlobalConnectionString(connectionString).ScanIn(typeof(MigrationExtension).Assembly).For.All()
         );
+
+
+    services.AddScoped<IUsuarioReadOnlyRepository, UsuarioRepository>();
+    services.AddScoped<IUsuarioWriteOnlyRepository, UsuarioRepository>();
 }
