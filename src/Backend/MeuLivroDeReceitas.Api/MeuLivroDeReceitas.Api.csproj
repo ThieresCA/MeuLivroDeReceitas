@@ -21,6 +21,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\Shared\MeuLivroDeReceitas.Comunication\MeuLivroDeReceitas.Comunication.csproj" />
+	  <ProjectReference Include="..\..\Shared\MeuLivroDeReceitas.Exceptions\MeuLivroDeReceitas.Exceptions.csproj" />
+	  <ProjectReference Include="..\MeuLivroDeReceitas.Application\MeuLivroDeReceitas.Application.csproj" />
 	  <ProjectReference Include="..\MeuLivroDeReceitas.Infrastructure\MeuLivroDeReceitas.Infrastructure.csproj" />
 	</ItemGroup>
 

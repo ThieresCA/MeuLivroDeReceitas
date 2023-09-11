@@ -1,4 +1,5 @@
 using FluentMigrator.Runner;
+using MeuLivroDeReceitas.Api.Filters;
 using MeuLivroDeReceitas.Infrastructure.Data;
 using MeuLivroDeReceitas.Infrastructure.Migrations;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 ConfigureServices(builder.Services, builder.Configuration);
 builder.Services.AddSwaggerGen();
+
+//adicionando um filtro para que cada vez q um erro estoure a classe de exceptionFilters será chamada
+builder.Services.AddMvc(option => option.Filters.Add(typeof(ExceptionFilters)));
 
 var app = builder.Build();
 
