@@ -1,18 +1,27 @@
-﻿using MeuLivroDeReceitas.Comunication.Request;
+﻿using AutoMapper;
+using MeuLivroDeReceitas.Comunication.Request;
+using MeuLivroDeReceitas.Domain.Repository;
 using MeuLivroDeReceitas.Exceptions.ExceptionsBase;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MeuLivroDeReceitas.Application.UseCases.User.SignUp
 {
     public class SignUpUseCase
     {
+        private readonly IUserWriteOnlyRepository _repository;
+        private readonly IMapper _mapper;
+
+        public SignUpUseCase(IUserWriteOnlyRepository repository)
+        {
+            _repository = repository;
+        }
+
         public async Task Execute(RequestCreateUser request)
         {
             Validate(request);
+            var entity = _mapper.Map<Domain.Entities.User>(request);
+            entity.Password = "crypt";
+
+            await _repository.AddUser(entity);
 
         }
 

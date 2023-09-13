@@ -12,12 +12,6 @@ namespace MeuLivroDeReceitas.Api.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         public async Task<IActionResult> GetAsync()
         {
-            var useCase = new SignUpUseCase();
-            await useCase.Execute(new Comunication.Request.RequestCreateUser
-            {
-                
-            });
-
             return Ok();
         }
     }
