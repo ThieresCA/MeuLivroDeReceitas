@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace MeuLivroDeReceitas.Application.UseCases.User.SignUp
 {
-    public class SignUpUserValidator : AbstractValidator<RequestCreateUser>
+    public class SignUpUserValidator : AbstractValidator<RequestCreateUserJson>
     {
         public SignUpUserValidator()
         {

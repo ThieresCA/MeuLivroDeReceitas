@@ -1,12 +1,12 @@
 using FluentMigrator.Runner;
-using MeuLivroDeReceitas.Domain.Repository;
 using MeuLivroDeReceitas.Api.Filters;
+using MeuLivroDeReceitas.Application.Services.AutoMapper;
+using MeuLivroDeReceitas.Application.UseCases.User.SignUp;
+using MeuLivroDeReceitas.Domain.Repository;
 using MeuLivroDeReceitas.Infrastructure.Data;
 using MeuLivroDeReceitas.Infrastructure.Data.Repository;
 using MeuLivroDeReceitas.Infrastructure.Migrations;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations.Internal;
-using System.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +19,13 @@ builder.Services.AddSwaggerGen();
 
 //adicionando um filtro para que cada vez q um erro estoure a classe de exceptionFilters será chamada
 builder.Services.AddMvc(option => option.Filters.Add(typeof(ExceptionFilters)));
+
+//configurando o perfil do AutoMapper
+builder.Services.AddScoped(provider => new AutoMapper.MapperConfiguration(config =>
+{
+    config.AddProfile(new AutoMapperConfiguration());
+}).CreateMapper());
+
 
 var app = builder.Build();
 
@@ -55,4 +62,5 @@ static void ConfigureServices(IServiceCollection services, IConfiguration Config
 
     services.AddScoped<IUserReadOnlyRepository, UserRepository>();
     services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
+    services.AddScoped<ISignUpUseCase, SignUpUseCase>();
 }

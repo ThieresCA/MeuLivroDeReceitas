@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MeuLivroDeReceitas.Comunication.Request
 {
-    public class RequestCreateUser
+    public class RequestCreateUserJson
     {
         public string Name { get; set; }
         public string Password { get; set; }

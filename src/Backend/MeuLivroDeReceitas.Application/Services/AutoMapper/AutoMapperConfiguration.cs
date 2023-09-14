@@ -8,7 +8,7 @@ namespace MeuLivroDeReceitas.Application.Services.AutoMapper
         public AutoMapperConfiguration()
         {
             //receberemos a requisição e mapearemos como uma entidade, no caso o User
-            CreateMap<RequestCreateUser, Domain.Entities.User>()
+            CreateMap<RequestCreateUserJson, Domain.Entities.User>()
                 //essa parte é feita pois a senha da entidade será criptografada ao invés
                 //de salvar a senha diretamente como viria pelo request
                 .ForMember(destino => destino.Password, config => config.Ignore());

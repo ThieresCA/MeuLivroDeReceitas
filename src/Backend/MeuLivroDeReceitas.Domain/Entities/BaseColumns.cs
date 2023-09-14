@@ -9,6 +9,6 @@ namespace MeuLivroDeReceitas.Domain.Entities
     public class BaseColumns
     {
         public long Id { get; set; }
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateDate { get; set; } = DateTime.UtcNow;
     }
 }
