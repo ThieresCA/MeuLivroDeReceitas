@@ -1,6 +1,5 @@
 using MeuLivroDeReceitas.Application.UseCases.User.SignUp;
 using MeuLivroDeReceitas.Comunication.Request;
-using MeuLivroDeReceitas.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MeuLivroDeReceitas.Api.Controllers

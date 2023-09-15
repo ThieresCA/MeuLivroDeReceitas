@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using MeuLivroDeReceitas.Comunication.Request;
-using MeuLivroDeReceitas.Domain.Entities;
 using MeuLivroDeReceitas.Domain.Repository;
 using MeuLivroDeReceitas.Exceptions.ExceptionsBase;
 
@@ -21,8 +20,11 @@ namespace MeuLivroDeReceitas.Application.UseCases.User.SignUp
         {
             Validate(request);
             var entity = _mapper.Map<Domain.Entities.User>(request);
-            entity.Password = "crypt";
-
+            //gerando um Hash utilizando o BCrypt
+            entity.Password = BCrypt.Net.BCrypt.EnhancedHashPassword(request.Password, 13);
+            
+            //fazer a comparãção da senha com o hash gerado pelo BCrypt
+            Console.WriteLine(BCrypt.Net.BCrypt.EnhancedVerify(request.Password, entity.Password));
             await _repository.AddUser(entity);
         }
 
