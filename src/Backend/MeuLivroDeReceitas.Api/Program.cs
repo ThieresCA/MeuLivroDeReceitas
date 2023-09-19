@@ -1,12 +1,14 @@
 using FluentMigrator.Runner;
 using MeuLivroDeReceitas.Api.Filters;
 using MeuLivroDeReceitas.Application.Services.AutoMapper;
+using MeuLivroDeReceitas.Application.Services.Token;
 using MeuLivroDeReceitas.Application.UseCases.User.SignUp;
 using MeuLivroDeReceitas.Domain.Repository;
 using MeuLivroDeReceitas.Infrastructure.Data;
 using MeuLivroDeReceitas.Infrastructure.Data.Repository;
 using MeuLivroDeReceitas.Infrastructure.Migrations;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -63,4 +65,9 @@ static void ConfigureServices(IServiceCollection services, IConfiguration Config
     services.AddScoped<IUserReadOnlyRepository, UserRepository>();
     services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
     services.AddScoped<ISignUpUseCase, SignUpUseCase>();
+
+    var sectionTokenKey = Configuration.GetRequiredSection("Configuration:TokenKey");
+    var sectionLifeTime = Configuration.GetRequiredSection("Configuration:LifeTimeToken");
+
+    services.AddScoped(option => new TokenController(int.Parse(sectionLifeTime.Value), sectionTokenKey.Value));
 }

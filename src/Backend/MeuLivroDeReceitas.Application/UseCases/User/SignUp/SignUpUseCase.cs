@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using MeuLivroDeReceitas.Application.Services.Token;
 using MeuLivroDeReceitas.Comunication.Request;
+using MeuLivroDeReceitas.Comunication.Response;
 using MeuLivroDeReceitas.Domain.Repository;
 using MeuLivroDeReceitas.Exceptions.ExceptionsBase;
 
@@ -9,14 +11,16 @@ namespace MeuLivroDeReceitas.Application.UseCases.User.SignUp
     {
         private readonly IUserWriteOnlyRepository _repository;
         private readonly IMapper _mapper;
+        private readonly TokenController _tokenController;
 
-        public SignUpUseCase(IUserWriteOnlyRepository repository, IMapper mapper)
+        public SignUpUseCase(IUserWriteOnlyRepository repository, IMapper mapper, TokenController tokenControler)
         {
             _repository = repository;
             _mapper = mapper;
+            _tokenController = tokenControler;
         }
 
-        public async Task Execute(RequestCreateUserJson request)
+        public async Task<ResponseCreateUserJson> Execute(RequestCreateUserJson request)
         {
             Validate(request);
             var entity = _mapper.Map<Domain.Entities.User>(request);
@@ -26,6 +30,12 @@ namespace MeuLivroDeReceitas.Application.UseCases.User.SignUp
             //fazer a comparãção da senha com o hash gerado pelo BCrypt
             Console.WriteLine(BCrypt.Net.BCrypt.EnhancedVerify(request.Password, entity.Password));
             await _repository.AddUser(entity);
+            var token = _tokenController.TokenGenerator(entity.Email);
+
+            return new ResponseCreateUserJson
+            {
+                Token = token,
+            };
         }
 
         public void Validate(RequestCreateUserJson request)
