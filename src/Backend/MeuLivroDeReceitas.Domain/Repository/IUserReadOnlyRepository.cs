@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace MeuLivroDeReceitas.Domain.Repository
 {
-    public interface IUsuarioWriteOnlyRepository
+    public interface IUserReadOnlyRepository
     {
-        Task<bool> AddUser(Usuario usuario);
+        Task<bool> EmailAlreadyExists(string email);
     }
 }

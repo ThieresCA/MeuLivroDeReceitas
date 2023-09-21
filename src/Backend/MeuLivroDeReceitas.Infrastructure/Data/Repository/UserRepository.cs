@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace MeuLivroDeReceitas.Infrastructure.Data.Repository
 {
-    public class UsuarioRepository : IUsuarioWriteOnlyRepository, IUsuarioReadOnlyRepository
+    public class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRepository
     {
         private readonly MeuLivroDeReceitasContext _context;
-        public UsuarioRepository(MeuLivroDeReceitasContext context)
+        public UserRepository(MeuLivroDeReceitasContext context)
         {
             _context = context;
         }
-        public async Task<bool> AddUser(Usuario usuario)
+        public async Task<bool> AddUser(User usuario)
         {
             try
             {
-                await _context.Usuarios.AddAsync(usuario);
+                await _context.Users.AddAsync(usuario);
                 await _context.SaveChangesAsync();
                 return true;
             }
@@ -32,7 +32,7 @@ namespace MeuLivroDeReceitas.Infrastructure.Data.Repository
 
         public async Task<bool> EmailAlreadyExists(string email)
         {
-            return await _context.Usuarios.AnyAsync(e => e.Email.Equals(email));
+            return await _context.Users.AnyAsync(e => e.Email.Equals(email));
         }
     }
 }

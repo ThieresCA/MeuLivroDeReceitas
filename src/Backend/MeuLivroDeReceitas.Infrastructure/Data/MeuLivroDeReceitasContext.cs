@@ -14,7 +14,7 @@ namespace MeuLivroDeReceitas.Infrastructure.Data
         }
 
         // aqui é feito a conexão da tabela de usuário com a classe
-        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

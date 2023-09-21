@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MeuLivroDeReceitas.Domain.Entities
+namespace MeuLivroDeReceitas.Comunication.Request
 {
-    public class Usuario : BaseColumns
+    public class RequestCreateUserJson
     {
-        public string Nome { get; set; }
-        public string Email { get; set; }
+        public string Name { get; set; }
         public string Password { get; set; }
+        public string Email { get; set; }
         public string Phone { get; set; }
     }
 }
