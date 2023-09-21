@@ -61,6 +61,15 @@ namespace MeuLivroDeReceitas.Exceptions {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Email already existis.
+        /// </summary>
+        public static string EMAIL_ALREADY_EXISTIS {
+            get {
+                return ResourceManager.GetString("EMAIL_ALREADY_EXISTIS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Email field cannot be empty.
         /// </summary>
         public static string EMPTY_EMAIL {
