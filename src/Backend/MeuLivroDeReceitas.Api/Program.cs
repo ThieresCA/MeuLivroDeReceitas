@@ -11,8 +11,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
+
+//colocar o nome dos endpoints todos em minusculo(boa prática)
+builder.Services.AddRouting(option => option.LowercaseUrls = true);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
