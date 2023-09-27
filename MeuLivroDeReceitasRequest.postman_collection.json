@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "2f00c5d2-4e05-4c5b-8ba7-b49bbb611c87",
+		"name": "MeuLivroDeReceitasRequest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30067898"
+	},
+	"item": [
+		{
+			"name": "SignUpUser",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var ddd = _.random(10, 99);\r",
+							"var firstNum = _.random(1, 9);\r",
+							"var firstFour = _.random(1000, 9999);\r",
+							"var lastFour = _.random(1000, 9999);\r",
+							"var PhoneNumber = ddd + \" \" + firstNum + \" \" + firstFour + \"-\" + lastFour\r",
+							"\r",
+							"pm.environment.set(\"Phone\", PhoneNumber)"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validar se a requisição foi feita com sucesso\", function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    pm.response.to.have.jsonBody(\"token\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"{{$randomFullName}}\",\r\n  \"password\": \"{{$randomPassword}}\",\r\n  \"email\": \"{{$randomEmail}}\",\r\n  \"phone\": \"{{Phone}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/user",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URLBASE",
+			"value": "https://localhost:7058",
+			"type": "string"
+		}
+	]
+}
