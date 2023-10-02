@@ -11,7 +11,7 @@ namespace MeuLivroDeReceitas.Application.UseCases.User.SignUp
         {
             RuleFor(user => user.Name).NotEmpty().WithMessage(ResourceErrorMessage.EMPTY_NAME);
             RuleFor(user => user.Email).NotEmpty().WithMessage(ResourceErrorMessage.EMPTY_EMAIL);
-            RuleFor(user => user.Password).NotEmpty().WithMessage(ResourceErrorMessage.INVALID_PASSWORD);
+            RuleFor(user => user.Password).NotEmpty().WithMessage(ResourceErrorMessage.EMPTY_PASSWORD);
             RuleFor(user => user.Phone).NotEmpty().WithMessage(ResourceErrorMessage.EMPTY_PHONE);
 
             //validação caso o email seja preenchido, deve ser um email valido
@@ -34,7 +34,14 @@ namespace MeuLivroDeReceitas.Application.UseCases.User.SignUp
                     //criando o padrão do regex [] <- indica o que receberemos [0-9], no caso seriam numeros de 0 a 9
                     //dentro dos {2} virá a quantidade de strings q receberemos ali, que no exemplo é 2
                     string pattern = "[0-9]{2} [1-9]{1} [0-9]{4}-[0-9]{4}";
-                    var isMatch = Regex.IsMatch(phone, pattern);
+
+                    //variavel para guardar o timeout do regex
+                    var matchTimeout = TimeSpan.FromMilliseconds(10);
+
+                    //criando o regex e setando o timeout
+                    var regex = new Regex(pattern, RegexOptions.None, matchTimeout);
+
+                    var isMatch = regex.IsMatch(phone);
 
                     if (!isMatch)
                     {

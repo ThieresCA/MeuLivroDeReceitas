@@ -88,6 +88,15 @@ namespace MeuLivroDeReceitas.Exceptions {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Password Field cannot be empty.
+        /// </summary>
+        public static string EMPTY_PASSWORD {
+            get {
+                return ResourceManager.GetString("EMPTY_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Phone field cannot be empty.
         /// </summary>
         public static string EMPTY_PHONE {
@@ -106,7 +115,7 @@ namespace MeuLivroDeReceitas.Exceptions {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Invalid password.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Invalid Password.
         /// </summary>
         public static string INVALID_PASSWORD {
             get {
