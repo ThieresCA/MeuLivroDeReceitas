@@ -9,7 +9,7 @@ namespace WebApi.Test.V1.User.SignUp
 {
     public class SignUpUserTest : ControllerBase
     {
-        private const string METODO = "usuario";
+        private const string METODO = "user";
 
         public SignUpUserTest(MeuLivroDeReceitasWebApplicationFactory<Program> factory) : base(factory)
         {
@@ -63,7 +63,7 @@ namespace WebApi.Test.V1.User.SignUp
             var responseData = await JsonDocument.ParseAsync(responseBody);
 
             //entrando no json, pegando o elemento messages e devolvendo como um array de jsonElements
-            var errors = responseData.RootElement.GetProperty("messages").EnumerateArray();
+            var errors = responseData.RootElement.GetProperty("errorsMessages").EnumerateArray();
 
             //verifica o erro garantindo q seja o Empty_Phone
             errors.Should().ContainSingle().And.Contain(error => error.GetString().Equals(ResourceErrorMessage.EMPTY_PHONE));
