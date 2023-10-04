@@ -37,7 +37,7 @@ namespace MeuLivroDeReceitas.Application.UseCases.User.SignUp
 
             return new ResponseCreateUserJson
             {
-                Token = token,
+                Token = token
             };
         }
 
