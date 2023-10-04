@@ -32,31 +32,6 @@ namespace UseCase.Test.User.SignUp
         }
 
         [Fact]
-        public async Task Validate_SignUp_EmailAlreadyExist()
-        {
-            //Criar request para chamada da funcao
-            var request = new RequestCreateUserJson
-            {
-                Name = "teste",
-                Email = "teste@gmail.com",
-                Password = "123456",
-                Phone = "27 9 9123-4587"
-            };
-
-            //definindo que ao passar pela validação para ver se o email exite, essa função deve retornar true
-            _ReadOnlyRepository.Setup(s => s.EmailAlreadyExists(request.Email)).ReturnsAsync(true);
-
-            //executando a função assincrona
-            Func<Task> result = async () => { await _signUpUseCase.Execute(request); };
-            
-
-            //assert
-            await result.Should().ThrowAsync<ValidationErrorsExceptions>()
-                .Where(erro => erro.ErrorsMessage.Count == 1 &&
-                erro.ErrorsMessage.Contains(ResourceErrorMessage.EMAIL_ALREADY_EXISTIS));
-        }
-
-        [Fact]
         public async Task Validate_SignUp_Sucess()
         {
             //Criar request para chamada da funcao
@@ -90,6 +65,32 @@ namespace UseCase.Test.User.SignUp
         }
 
         [Fact]
+        public async Task Validate_SignUp_EmailAlreadyExist()
+        {
+            //Criar request para chamada da funcao
+            var request = new RequestCreateUserJson
+            {
+                Name = "teste",
+                Email = "teste@gmail.com",
+                Password = "123456",
+                Phone = "27 9 9123-4587"
+            };
+
+            //definindo que ao passar pela validação para ver se o email exite, essa função deve retornar true
+            _ReadOnlyRepository.Setup(s => s.EmailAlreadyExists(request.Email)).ReturnsAsync(true);
+
+            //executando a função assincrona
+            Func<Task> result = async () => { await _signUpUseCase.Execute(request); };
+            
+
+            //assert
+            await result.Should().ThrowAsync<ValidationErrorsExceptions>()
+                .Where(erro => erro.ErrorsMessage.Count == 1 &&
+                erro.ErrorsMessage.Contains(ResourceErrorMessage.EMAIL_ALREADY_EXISTIS));
+        }
+
+
+        [Fact]
         public async Task Validate_SignUp_EmptyEmail()
         {
             //Criar request para chamada da funcao
@@ -110,26 +111,5 @@ namespace UseCase.Test.User.SignUp
                 erro.ErrorsMessage.Contains(ResourceErrorMessage.INVALID_PHONE));
         }
 
-
-        [Fact]
-        public async Task Validate_SignUp_InvalidPhone()
-        {
-            //Criar request para chamada da funcao
-            var request = new RequestCreateUserJson
-            {
-                Name = "teste",
-                Email = "",
-                Password = "123456",
-                Phone = "27 9 9123-4587"
-            };
-
-            //executando a função assincrona
-            Func<Task> result = async () => { await _signUpUseCase.Execute(request); };
-
-            //assert
-            await result.Should().ThrowAsync<ValidationErrorsExceptions>()
-                .Where(erro => erro.ErrorsMessage.Count == 1 &&
-                erro.ErrorsMessage.Contains(ResourceErrorMessage.EMPTY_EMAIL));
-        }
     }
 }
