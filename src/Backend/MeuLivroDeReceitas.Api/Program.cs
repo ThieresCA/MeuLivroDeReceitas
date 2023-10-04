@@ -40,7 +40,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MigrationDB();
+using var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+using var context = serviceScope.ServiceProvider.GetService<MeuLivroDeReceitasContext>();
+
+// verificando se o provider name é igual a Microsoft.EntityFrameworkCore.InMemory ou não
+bool? databaseInMemory = context?.Database?.ProviderName?.Equals("Microsoft.EntityFrameworkCore.InMemory");
+
+if (!databaseInMemory.HasValue || !databaseInMemory.Value)
+{
+    app.MigrationDB();
+}
+
 
 app.UseHttpsRedirection();
 
@@ -52,17 +63,23 @@ app.Run();
 
 static void ConfigureServices(IServiceCollection services, IConfiguration Configuration)
 {
-    var connectionString = Configuration.GetConnectionString("MeuLivroDeReceitasDb");
 
-    services.AddDbContext<MeuLivroDeReceitasContext>(options =>
-                options.UseSqlServer(connectionString, builder =>
-                    builder.MigrationsAssembly("MeuLivroDeReceitas.Infrastructure")));
+    //configuração para verificar se o ambiente é o de texte(banco de dados em memória) ou não
+    bool.TryParse(Configuration.GetSection("Configuration:InMemory").Value, out bool InMemoryDb);
 
-    services.AddFluentMigratorCore().ConfigureRunner(configure =>
-        configure.AddSqlServer()
-        .WithGlobalConnectionString(connectionString).ScanIn(typeof(MigrationExtension).Assembly).For.All()
-        );
+    if (!InMemoryDb)
+    {
+        var connectionString = Configuration.GetConnectionString("MeuLivroDeReceitasDb");
 
+        services.AddDbContext<MeuLivroDeReceitasContext>(options =>
+                    options.UseSqlServer(connectionString, builder =>
+                        builder.MigrationsAssembly("MeuLivroDeReceitas.Infrastructure")));
+
+        services.AddFluentMigratorCore().ConfigureRunner(configure =>
+            configure.AddSqlServer()
+            .WithGlobalConnectionString(connectionString).ScanIn(typeof(MigrationExtension).Assembly).For.All()
+            );
+    }
 
     services.AddScoped<IUserReadOnlyRepository, UserRepository>();
     services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
@@ -73,3 +90,5 @@ static void ConfigureServices(IServiceCollection services, IConfiguration Config
 
     services.AddScoped(option => new TokenController(int.Parse(sectionLifeTime.Value), sectionTokenKey.Value));
 }
+
+public partial class Program { }
