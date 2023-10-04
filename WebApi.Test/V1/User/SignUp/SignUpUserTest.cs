@@ -47,7 +47,7 @@ namespace WebApi.Test.V1.User.SignUp
             var request = new RequestCreateUserJson
             {
                 Name = "teste",
-                Email = "teste@gmail.com",
+                Email = "teste7@gmail.com",
                 Password = "123456",
                 Phone = ""
             };
