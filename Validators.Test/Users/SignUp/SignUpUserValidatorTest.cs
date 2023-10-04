@@ -2,6 +2,7 @@
 using MeuLivroDeReceitas.Application.UseCases.User.SignUp;
 using MeuLivroDeReceitas.Comunication.Request;
 using MeuLivroDeReceitas.Exceptions;
+using System.ComponentModel.DataAnnotations;
 using Xunit;
 
 namespace Validators.Test.Users.SignUp
@@ -107,6 +108,26 @@ namespace Validators.Test.Users.SignUp
             result.IsValid.Should().BeFalse();
 
             result.Errors.Should().ContainSingle().And.Contain(error => error.ErrorMessage.Equals(ResourceErrorMessage.EMPTY_PHONE));
+        }
+
+        [Fact]
+        public void Validate_Invalid_Phone()
+        {
+            var validator = new SignUpUserValidator();
+
+            var request = new RequestCreateUserJson
+            {
+                Name = "teste",
+                Email = "teste@gmail.com",
+                Password = "123456",
+                Phone = "27889"
+            };
+
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+
+            result.Errors.Should().ContainSingle().And.Contain(error => error.ErrorMessage.Equals(ResourceErrorMessage.INVALID_PHONE));
         }
 
         [Fact]
