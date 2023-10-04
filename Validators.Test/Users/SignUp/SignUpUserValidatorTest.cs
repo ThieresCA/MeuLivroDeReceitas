@@ -159,7 +159,7 @@ namespace Validators.Test.Users.SignUp
             var request = new RequestCreateUserJson
             {
                 Name = "teste",
-                Email = "testegmail.com",
+                Email = "teste@gmail.com",
                 Password = "123456",
                 Phone = "279123-4587"
             };
