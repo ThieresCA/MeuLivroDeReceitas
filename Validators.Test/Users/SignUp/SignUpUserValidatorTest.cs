@@ -161,7 +161,7 @@ namespace Validators.Test.Users.SignUp
                 Name = "teste",
                 Email = "teste@gmail.com",
                 Password = "123456",
-                Phone = "27 9123-84587"
+                Phone = "27 984587"
             };
 
             var result = validator.Validate(request);
