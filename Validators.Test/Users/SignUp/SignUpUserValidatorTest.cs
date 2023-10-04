@@ -149,5 +149,26 @@ namespace Validators.Test.Users.SignUp
 
             result.Errors.Should().ContainSingle().And.Contain(errors => errors.ErrorMessage.Equals(ResourceErrorMessage.INVALID_EMAIL));
         }
+
+        [Fact]
+        public void Validate_Invalid_Phone()
+        {
+
+            var validator = new SignUpUserValidator();
+
+            var request = new RequestCreateUserJson
+            {
+                Name = "teste",
+                Email = "testegmail.com",
+                Password = "123456",
+                Phone = "279123-4587"
+            };
+
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+
+            result.Errors.Should().ContainSingle().And.Contain(errors => errors.ErrorMessage.Equals(ResourceErrorMessage.INVALID_PHONE));
+        }
     }
 }
