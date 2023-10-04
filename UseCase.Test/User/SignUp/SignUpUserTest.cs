@@ -96,6 +96,28 @@ namespace UseCase.Test.User.SignUp
             var request = new RequestCreateUserJson
             {
                 Name = "teste",
+                Email = "teste@gmail.com",
+                Password = "123456",
+                Phone = "2923-4587"
+            };
+
+            //executando a função assincrona
+            Func<Task> result = async () => { await _signUpUseCase.Execute(request); };
+
+            //assert
+            await result.Should().ThrowAsync<ValidationErrorsExceptions>()
+                .Where(erro => erro.ErrorsMessage.Count == 1 &&
+                erro.ErrorsMessage.Contains(ResourceErrorMessage.INVALID_PHONE));
+        }
+
+
+        [Fact]
+        public async Task Validate_SignUp_InvalidPhone()
+        {
+            //Criar request para chamada da funcao
+            var request = new RequestCreateUserJson
+            {
+                Name = "teste",
                 Email = "",
                 Password = "123456",
                 Phone = "27 9 9123-4587"
