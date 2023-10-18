@@ -24,10 +24,18 @@ namespace MeuLivroDeReceitas.Infrastructure.Data.Repository
                 await _context.SaveChangesAsync();
                 return true;
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 return false;
             }
+        }
+
+        public async Task<User> Login(string email, string password)
+        {
+            //vamos adicionar o no-tracking pq essa é uma query só de leitura, então para que seja mais rapido será
+            //adicionado o no-tracking(recomendação da microsoft)
+            return await _context.Users.AsNoTracking().
+                FirstOrDefaultAsync(c => c.Email.Equals(email) && c.Password.Equals(password));
         }
 
         public async Task<bool> EmailAlreadyExists(string email)
