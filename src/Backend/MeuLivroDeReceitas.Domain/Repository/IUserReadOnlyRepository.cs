@@ -10,5 +10,7 @@ namespace MeuLivroDeReceitas.Domain.Repository
     public interface IUserReadOnlyRepository
     {
         Task<bool> EmailAlreadyExists(string email);
+
+        Task<User> Login(string email, string password);
     }
 }
