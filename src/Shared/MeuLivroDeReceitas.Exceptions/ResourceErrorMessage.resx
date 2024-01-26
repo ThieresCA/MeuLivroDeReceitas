@@ -135,6 +135,9 @@
   <data name="INVALID_EMAIL" xml:space="preserve">
     <value>Email must be valid</value>
   </data>
+  <data name="INVALID_LOGIN" xml:space="preserve">
+    <value>Invalid Login</value>
+  </data>
   <data name="INVALID_PASSWORD" xml:space="preserve">
     <value>Invalid Password</value>
   </data>

@@ -10,7 +10,7 @@ namespace MeuLivroDeReceitas.Exceptions.ExceptionsBase
     {
         public List<string> ErrorsMessage { get; set; }
 
-        public ValidationErrorsExceptions( List<string> errorsMessage)
+        public ValidationErrorsExceptions( List<string> errorsMessage) : base(string.Empty)
         {
             ErrorsMessage = errorsMessage;
         }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MeuLivroDeReceitas.Comunication.Response
 {
-    public class ResponseCreateUserJson
+    public class ResponseLoginJson
     {
+        public string Name {  get; set; }
         public string Token { get; set; }
-        public string Name { get; set; }
     }
 }

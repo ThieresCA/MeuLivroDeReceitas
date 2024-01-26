@@ -12,9 +12,13 @@ namespace MeuLivroDeReceitas.Api.Filters
     {
         public void OnException(ExceptionContext context)
         {
-            if(context.Exception is MeuLivroDeReceitasException)
+            if (context.Exception is MeuLivroDeReceitasException)
             {
                 MeuLivroDeReceitasExceptionTreatment(context);
+            }
+            else if (context.Exception is InvalidLogInException)
+            {
+                LogInExcepctionTreatment(context);
             }
             else
             {
@@ -24,10 +28,17 @@ namespace MeuLivroDeReceitas.Api.Filters
 
         private void MeuLivroDeReceitasExceptionTreatment(ExceptionContext context)
         {
-            if(context.Exception is ValidationErrorsExceptions)
+            if (context.Exception is ValidationErrorsExceptions)
             {
                 ErrorsValidationTreatment(context);
             }
+        }
+
+        private void LogInExcepctionTreatment(ExceptionContext context)
+        {
+            var validationError = context.Exception as ValidationErrorsExceptions;
+            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            context.Result = new ObjectResult(new ErrorResponseJson(validationError.Message));
         }
 
         private void ErrorsValidationTreatment(ExceptionContext context)

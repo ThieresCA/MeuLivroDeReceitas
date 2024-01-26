@@ -2,6 +2,7 @@ using FluentMigrator.Runner;
 using MeuLivroDeReceitas.Api.Filters;
 using MeuLivroDeReceitas.Application.Services.AutoMapper;
 using MeuLivroDeReceitas.Application.Services.Token;
+using MeuLivroDeReceitas.Application.UseCases.Login.LogIn;
 using MeuLivroDeReceitas.Application.UseCases.User.SignUp;
 using MeuLivroDeReceitas.Domain.Repository;
 using MeuLivroDeReceitas.Infrastructure.Data;
@@ -70,9 +71,13 @@ static void ConfigureServices(IServiceCollection services, IConfiguration Config
     if (!InMemoryDb)
     {
         var connectionString = Configuration.GetConnectionString("MeuLivroDeReceitasDb");
+        var connectionStringIpamv = Configuration.GetConnectionString("MeuLivroDeReceitasDbIPAMV");
 
         services.AddDbContext<MeuLivroDeReceitasContext>(options =>
                     options.UseSqlServer(connectionString, builder =>
+                        builder.MigrationsAssembly("MeuLivroDeReceitas.Infrastructure"))).
+                        AddDbContext<MeuLivroDeReceitasContext>(options =>
+                    options.UseSqlServer(connectionStringIpamv, builder =>
                         builder.MigrationsAssembly("MeuLivroDeReceitas.Infrastructure")));
 
         services.AddFluentMigratorCore().ConfigureRunner(configure =>
@@ -84,6 +89,8 @@ static void ConfigureServices(IServiceCollection services, IConfiguration Config
     services.AddScoped<IUserReadOnlyRepository, UserRepository>();
     services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
     services.AddScoped<ISignUpUseCase, SignUpUseCase>();
+    services.AddScoped<ILogInUseCase, LoginUseCase>();
+
 
     var sectionTokenKey = Configuration.GetRequiredSection("Configuration:TokenKey");
     var sectionLifeTime = Configuration.GetRequiredSection("Configuration:LifeTimeToken");

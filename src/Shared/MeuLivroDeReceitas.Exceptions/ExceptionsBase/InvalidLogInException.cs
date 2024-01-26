@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace MeuLivroDeReceitas.Exceptions.ExceptionsBase
 {
-    public class MeuLivroDeReceitasException : SystemException
+    public class InvalidLogInException : MeuLivroDeReceitasException
     {
-        public MeuLivroDeReceitasException(string mensagem) : base(mensagem)
+        public InvalidLogInException() : base(ResourceErrorMessage.INVALID_LOGIN)
         {
+            
         }
     }
 }
