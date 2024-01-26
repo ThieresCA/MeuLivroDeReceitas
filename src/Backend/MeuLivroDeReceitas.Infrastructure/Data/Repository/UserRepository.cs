@@ -1,11 +1,8 @@
 ﻿using MeuLivroDeReceitas.Domain.Entities;
 using MeuLivroDeReceitas.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+
 
 namespace MeuLivroDeReceitas.Infrastructure.Data.Repository
 {
@@ -34,8 +31,21 @@ namespace MeuLivroDeReceitas.Infrastructure.Data.Repository
         {
             //vamos adicionar o no-tracking pq essa é uma query só de leitura, então para que seja mais rapido será
             //adicionado o no-tracking(recomendação da microsoft)
-            return await _context.Users.AsNoTracking().
-                FirstOrDefaultAsync(c => c.Email.Equals(email) && c.Password.Equals(password));
+
+            var response = await _context.Users.AsNoTracking().FirstOrDefaultAsync(c => c.Email.Equals(email));
+
+            var verify = BCrypt.Net.BCrypt.EnhancedVerify(password, response.Password);
+
+            if (!verify)
+            {
+                return null;
+            }
+
+            return response;
+
+
+            //var response = _context.Users.
+            //    SingleOrDefault(c => c.Email.Equals(email) && c.Password.Equals(password));
         }
 
         public async Task<bool> EmailAlreadyExists(string email)

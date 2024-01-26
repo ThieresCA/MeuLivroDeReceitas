@@ -22,8 +22,7 @@ namespace MeuLivroDeReceitas.Application.UseCases.Login.LogIn
         }
         public async Task<ResponseLoginJson> Execute(LoginRequestJson request)
         {
-            var crypt = BCrypt.Net.BCrypt.EnhancedHashPassword(request.Password, 13);
-            var user = await _readOnlyRepository.Login(request.Email, crypt);
+            var user = await _readOnlyRepository.Login(request.Email, request.Password);
             
             if (user == null)
             {
