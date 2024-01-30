@@ -22,7 +22,6 @@ namespace UseCase.Test.User.LogIn
         private readonly LoginUseCase _LogInUseCase;
         private readonly TokenController _tokenControlerRepository;
         private readonly Mock<IUserReadOnlyRepository> _ReadOnlyRepository;
-        private readonly Mock<IMapper> _mapper;
 
 
         public LogInTest()
@@ -30,7 +29,6 @@ namespace UseCase.Test.User.LogIn
             _ReadOnlyRepository = new Mock<IUserReadOnlyRepository>();
             _tokenControlerRepository = new TokenController(1000, "TmFwZjcsOEE2UU1GXiZldyF9XC59dVMnTz98QH00Rl1DPHI=");
             _LogInUseCase = new LoginUseCase(_ReadOnlyRepository.Object, _tokenControlerRepository);
-            _mapper = new Mock<IMapper>();
         }
 
         [Fact]
