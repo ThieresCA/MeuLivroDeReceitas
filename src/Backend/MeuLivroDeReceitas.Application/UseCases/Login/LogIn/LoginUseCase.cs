@@ -22,11 +22,15 @@ namespace MeuLivroDeReceitas.Application.UseCases.Login.LogIn
         }
         public async Task<ResponseLoginJson> Execute(LoginRequestJson request)
         {
-            var user = await _readOnlyRepository.Login(request.Email, request.Password);
-            
-            if (user == null)
+            await Validate(request);
+
+            var user = await _readOnlyRepository.Login(request.Email);
+
+            var verify = BCrypt.Net.BCrypt.EnhancedVerify(request.Password, user.Password);
+
+            if (!verify)
             {
-                throw new InvalidLogInException();
+                return null;
             }
 
             return new ResponseLoginJson
@@ -34,6 +38,19 @@ namespace MeuLivroDeReceitas.Application.UseCases.Login.LogIn
                 Name = user.Name,
                 Token = _tokenController.TokenGenerator(user.Email)
             };
+        }
+
+        public async Task Validate(LoginRequestJson loginRequest)
+        {
+            var validate = new LoginValidator();
+
+            var result = validate.Validate(loginRequest);
+
+            if (!result.IsValid)
+            {
+                var errorMessage = result.Errors.Select(error => error.ErrorMessage).ToList();
+                throw new ValidationErrorsExceptions(errorMessage);
+            }
         }
     }
 }

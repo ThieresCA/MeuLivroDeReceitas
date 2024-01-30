@@ -27,25 +27,11 @@ namespace MeuLivroDeReceitas.Infrastructure.Data.Repository
             }
         }
 
-        public async Task<User> Login(string email, string password)
+        public async Task<User> Login(string email)
         {
             //vamos adicionar o no-tracking pq essa é uma query só de leitura, então para que seja mais rapido será
             //adicionado o no-tracking(recomendação da microsoft)
-
-            var response = await _context.Users.AsNoTracking().FirstOrDefaultAsync(c => c.Email.Equals(email));
-
-            var verify = BCrypt.Net.BCrypt.EnhancedVerify(password, response.Password);
-
-            if (!verify)
-            {
-                return null;
-            }
-
-            return response;
-
-
-            //var response = _context.Users.
-            //    SingleOrDefault(c => c.Email.Equals(email) && c.Password.Equals(password));
+            return await _context.Users.AsNoTracking().FirstOrDefaultAsync(c => c.Email.Equals(email));
         }
 
         public async Task<bool> EmailAlreadyExists(string email)

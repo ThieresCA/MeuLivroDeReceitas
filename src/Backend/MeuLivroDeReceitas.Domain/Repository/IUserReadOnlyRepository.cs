@@ -11,6 +11,6 @@ namespace MeuLivroDeReceitas.Domain.Repository
     {
         Task<bool> EmailAlreadyExists(string email);
 
-        Task<User> Login(string email, string password);
+        Task<User> Login(string email);
     }
 }
