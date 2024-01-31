@@ -115,7 +115,7 @@ namespace MeuLivroDeReceitas.Exceptions {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Invalid Login.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Invalid Login or Password.
         /// </summary>
         public static string INVALID_LOGIN {
             get {

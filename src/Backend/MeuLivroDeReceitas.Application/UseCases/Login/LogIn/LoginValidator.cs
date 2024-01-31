@@ -13,12 +13,12 @@ namespace MeuLivroDeReceitas.Application.UseCases.Login.LogIn
     {
         public LoginValidator()
         {
-            RuleFor(user => user.Email).NotEmpty().WithMessage(ResourceErrorMessage.EMPTY_EMAIL);
+            RuleFor(user => user.Email).NotEmpty().WithMessage(ResourceErrorMessage.INVALID_LOGIN);
 
             //validação caso o email seja preenchido, deve ser um email valido
             When(user => !string.IsNullOrWhiteSpace(user.Email), () =>
             {
-                RuleFor(user => user.Email).EmailAddress().WithMessage(ResourceErrorMessage.INVALID_EMAIL);
+                RuleFor(user => user.Email).EmailAddress().WithMessage(ResourceErrorMessage.INVALID_LOGIN);
             });
 
             //validação caso a string seja preenchida, necessário minimo de 6 caracteres

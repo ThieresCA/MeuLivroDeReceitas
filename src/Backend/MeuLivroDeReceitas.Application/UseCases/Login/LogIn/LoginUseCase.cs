@@ -2,6 +2,7 @@
 using MeuLivroDeReceitas.Comunication.Request;
 using MeuLivroDeReceitas.Comunication.Response;
 using MeuLivroDeReceitas.Domain.Repository;
+using MeuLivroDeReceitas.Exceptions;
 using MeuLivroDeReceitas.Exceptions.ExceptionsBase;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,11 @@ namespace MeuLivroDeReceitas.Application.UseCases.Login.LogIn
 
             if (!verify)
             {
-                return null;
+                List<string> errorMessage = new List<string>
+                {
+                    ResourceErrorMessage.INVALID_LOGIN
+                };
+                throw new ValidationErrorsExceptions(errorMessage);
             }
 
             return new ResponseLoginJson
