@@ -59,8 +59,7 @@ namespace UseCase.Test.User.LogIn
         }
 
         [Fact]
-
-        public async Task Invalid_Email_Error()
+        public async Task Invalid_Email_Request_Error()
         {
             var request = new LoginRequestJson { Email = "gmail.com", Password = "string" };
 
@@ -72,7 +71,6 @@ namespace UseCase.Test.User.LogIn
         }
 
         [Fact]
-
         public async Task Invalid_Password_Error()
         {
             var request = new LoginRequestJson { Email = "thieres@gmail.com", Password = "test12" };
@@ -90,6 +88,17 @@ namespace UseCase.Test.User.LogIn
 
             await result.Should().ThrowAsync<ValidationErrorsExceptions>().Where(error => error.ErrorsMessage.Count == 1 &&
             error.ErrorsMessage.Contains(ResourceErrorMessage.INVALID_LOGIN));
+        }
+
+        [Fact]
+        public async Task Invalid_Password_Request_Error()
+        {
+            var request = new LoginRequestJson { Email = "thieres@gmail.com", Password = "test" };
+
+            Func<Task> result = async () => { await _LogInUseCase.Execute(request); };
+
+            await result.Should().ThrowAsync<ValidationErrorsExceptions>().Where(error => error.ErrorsMessage.Count == 1 &&
+            error.ErrorsMessage.Contains(ResourceErrorMessage.INVALID_PASSWORD_6_CHAR_MIN));
         }
     }
 }

@@ -90,7 +90,7 @@ static void ConfigureServices(IServiceCollection services, IConfiguration Config
     services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
     services.AddScoped<ISignUpUseCase, SignUpUseCase>();
     services.AddScoped<ILogInUseCase, LoginUseCase>();
-
+    services.AddScoped<IUpdateOnlyRepository, UserRepository>();
 
     var sectionTokenKey = Configuration.GetRequiredSection("Configuration:TokenKey");
     var sectionLifeTime = Configuration.GetRequiredSection("Configuration:LifeTimeToken");
