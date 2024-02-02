@@ -5,6 +5,6 @@ namespace MeuLivroDeReceitas.Application.UseCases.User.SignUp
 {
     public interface ISignUpUseCase
     {
-        Task<ResponseCreateUserJson> Execute(RequestCreateUserJson request);
+        Task<ResponseCreateUserJson> Execute(CreateUserRequestJson request);
     }
 }

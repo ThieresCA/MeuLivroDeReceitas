@@ -14,7 +14,7 @@ namespace MeuLivroDeReceitas.Api.Controllers
         //aqui a gente deixa explicito qual será o status e oq receberemos
         [ProducesResponseType(typeof(ResponseCreateUserJson), StatusCodes.Status201Created)]
         public async Task<IActionResult> UserRegister([FromServices] ISignUpUseCase useCase,
-                                                      [FromBody] RequestCreateUserJson request)
+                                                      [FromBody] CreateUserRequestJson request)
         {
             var result = await useCase.Execute(request);
             return Created(string.Empty ,result);

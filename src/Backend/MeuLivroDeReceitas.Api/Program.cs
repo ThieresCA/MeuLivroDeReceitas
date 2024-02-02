@@ -1,8 +1,10 @@
 using FluentMigrator.Runner;
 using MeuLivroDeReceitas.Api.Filters;
 using MeuLivroDeReceitas.Application.Services.AutoMapper;
+using MeuLivroDeReceitas.Application.Services.LogedInUser;
 using MeuLivroDeReceitas.Application.Services.Token;
 using MeuLivroDeReceitas.Application.UseCases.Login.LogIn;
+using MeuLivroDeReceitas.Application.UseCases.UpdatePassword;
 using MeuLivroDeReceitas.Application.UseCases.User.SignUp;
 using MeuLivroDeReceitas.Domain.Repository;
 using MeuLivroDeReceitas.Infrastructure.Data;
@@ -31,6 +33,7 @@ builder.Services.AddScoped(provider => new AutoMapper.MapperConfiguration(config
     config.AddProfile(new AutoMapperConfiguration());
 }).CreateMapper());
 
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -91,6 +94,8 @@ static void ConfigureServices(IServiceCollection services, IConfiguration Config
     services.AddScoped<ISignUpUseCase, SignUpUseCase>();
     services.AddScoped<ILogInUseCase, LoginUseCase>();
     services.AddScoped<IUpdateOnlyRepository, UserRepository>();
+    services.AddScoped<IUpdatePasswordUseCase, UpdatePasswordUseCase>();
+    services.AddScoped<ILoggedInUser, LoggedInUser>();
 
     var sectionTokenKey = Configuration.GetRequiredSection("Configuration:TokenKey");
     var sectionLifeTime = Configuration.GetRequiredSection("Configuration:LifeTimeToken");

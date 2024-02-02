@@ -13,7 +13,7 @@ namespace Validators.Test.Users.SignUp
         {
             var validator = new SignUpUserValidator();
 
-            var request = new RequestCreateUserJson
+            var request = new CreateUserRequestJson
             {
                 Name = "teste",
                 Email = "teste@gmail.com",
@@ -31,7 +31,7 @@ namespace Validators.Test.Users.SignUp
         {
             var validator = new SignUpUserValidator();
 
-            var request = new RequestCreateUserJson
+            var request = new CreateUserRequestJson
             {
                 Name = "",
                 Email = "th@gmail.com",
@@ -53,7 +53,7 @@ namespace Validators.Test.Users.SignUp
         {
             var validator = new SignUpUserValidator();
 
-            var request = new RequestCreateUserJson
+            var request = new CreateUserRequestJson
             {
                 Name = "teste",
                 Email = "",
@@ -74,7 +74,7 @@ namespace Validators.Test.Users.SignUp
 
             var validator = new SignUpUserValidator();
 
-            var request = new RequestCreateUserJson
+            var request = new CreateUserRequestJson
             {
                 Name = "teste",
                 Email = "teste@gmail.com",
@@ -94,7 +94,7 @@ namespace Validators.Test.Users.SignUp
         {
             var validate = new SignUpUserValidator();
 
-            var request = new RequestCreateUserJson
+            var request = new CreateUserRequestJson
             {
                 Name = "teste",
                 Email = "teste@gmail.com",
@@ -114,7 +114,7 @@ namespace Validators.Test.Users.SignUp
         {
             var validator = new SignUpUserValidator();
 
-            var request = new RequestCreateUserJson
+            var request = new CreateUserRequestJson
             {
                 Name = "teste",
                 Email = "teste@gmail.com",
@@ -135,7 +135,7 @@ namespace Validators.Test.Users.SignUp
 
             var validator = new SignUpUserValidator();
 
-            var request = new RequestCreateUserJson
+            var request = new CreateUserRequestJson
             {
                 Name = "teste",
                 Email = "testegmail.com",
@@ -156,7 +156,7 @@ namespace Validators.Test.Users.SignUp
 
             var validator = new SignUpUserValidator();
 
-            var request = new RequestCreateUserJson
+            var request = new CreateUserRequestJson
             {
                 Name = "teste",
                 Email = "teste@gmail.com",

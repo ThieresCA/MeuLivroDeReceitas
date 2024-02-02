@@ -38,7 +38,7 @@ namespace MeuLivroDeReceitas.Api.Filters
         {
             var validationError = context.Exception as ValidationErrorsExceptions;
             context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            context.Result = new ObjectResult(new ErrorResponseJson(validationError.Message));
+            context.Result = new ObjectResult(new ResponseErrorJson(validationError.Message));
         }
 
         private void ErrorsValidationTreatment(ExceptionContext context)
@@ -46,14 +46,14 @@ namespace MeuLivroDeReceitas.Api.Filters
             var ErrorsValidationException = context.Exception as ValidationErrorsExceptions;
 
             context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            context.Result = new ObjectResult(new ErrorResponseJson(ErrorsValidationException.ErrorsMessage));
+            context.Result = new ObjectResult(new ResponseErrorJson(ErrorsValidationException.ErrorsMessage));
         }
 
         private void UnknownError(ExceptionContext context)
         {
             //setando o status code 500 para o erro
             context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            context.Result = new ObjectResult(new ErrorResponseJson(ResourceErrorMessage.UNKNOWN_ERROR));
+            context.Result = new ObjectResult(new ResponseErrorJson(ResourceErrorMessage.UNKNOWN_ERROR));
         }
     }
 }

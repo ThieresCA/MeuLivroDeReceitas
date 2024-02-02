@@ -19,7 +19,7 @@ namespace WebApi.Test.V1.User.SignUp
         [Fact]
         public async Task SignUpUser_Sucess()
         {
-            var request = new RequestCreateUserJson
+            var request = new CreateUserRequestJson
             {
                 Name = "teste",
                 Email = "teste@gmail.com",
@@ -44,7 +44,7 @@ namespace WebApi.Test.V1.User.SignUp
         [Fact]
         public async Task SignUpUser_EmptyPhone()
         {
-            var request = new RequestCreateUserJson
+            var request = new CreateUserRequestJson
             {
                 Name = "teste",
                 Email = "teste7@gmail.com",

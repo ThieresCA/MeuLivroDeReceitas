@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MeuLivroDeReceitas.Infrastructure.Data.Repository
 {
-    public class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRepository
+    public class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRepository, IUpdateOnlyRepository
     {
         private readonly MeuLivroDeReceitasContext _context;
         public UserRepository(MeuLivroDeReceitasContext context)
@@ -37,6 +37,11 @@ namespace MeuLivroDeReceitas.Infrastructure.Data.Repository
         public async Task<bool> EmailAlreadyExists(string email)
         {
             return await _context.Users.AnyAsync(e => e.Email.Equals(email));
+        }
+
+        public void Update(User user)
+        {
+            _context.Users.Update(user);
         }
     }
 }

@@ -35,7 +35,7 @@ namespace UseCase.Test.User.SignUp
         public async Task Validate_SignUp_Sucess()
         {
             //Criar request para chamada da funcao
-            var request = new RequestCreateUserJson
+            var request = new CreateUserRequestJson
             {
                 Name = "teste",
                 Email = "teste@gmail.com",
@@ -68,7 +68,7 @@ namespace UseCase.Test.User.SignUp
         public async Task Validate_SignUp_EmailAlreadyExist()
         {
             //Criar request para chamada da funcao
-            var request = new RequestCreateUserJson
+            var request = new CreateUserRequestJson
             {
                 Name = "teste",
                 Email = "teste@gmail.com",
@@ -94,7 +94,7 @@ namespace UseCase.Test.User.SignUp
         public async Task Validate_SignUp_EmptyEmail()
         {
             //Criar request para chamada da funcao
-            var request = new RequestCreateUserJson
+            var request = new CreateUserRequestJson
             {
                 Name = "teste",
                 Email = "teste@gmail.com",

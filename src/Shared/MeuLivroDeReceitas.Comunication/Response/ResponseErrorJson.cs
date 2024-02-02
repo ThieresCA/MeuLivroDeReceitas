@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace MeuLivroDeReceitas.Comunication.Response
 {
-    public class ErrorResponseJson
+    public class ResponseErrorJson
     {
         public List<string> ErrorsMessages { get; set; }
 
-        public ErrorResponseJson(string mensagem)
+        public ResponseErrorJson(string mensagem)
         {
            ErrorsMessages = new List<string>
            {
@@ -18,7 +18,7 @@ namespace MeuLivroDeReceitas.Comunication.Response
            };
         }
 
-        public ErrorResponseJson(List<string> mensagens)
+        public ResponseErrorJson(List<string> mensagens)
         {
             ErrorsMessages = mensagens;
         }

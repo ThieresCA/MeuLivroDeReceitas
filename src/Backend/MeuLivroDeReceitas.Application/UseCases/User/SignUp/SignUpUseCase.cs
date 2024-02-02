@@ -23,7 +23,7 @@ namespace MeuLivroDeReceitas.Application.UseCases.User.SignUp
             _readOnlyRepository = readOnlyRepository;
         }
 
-        public async Task<ResponseCreateUserJson> Execute(RequestCreateUserJson request)
+        public async Task<ResponseCreateUserJson> Execute(CreateUserRequestJson request)
         {
             await Validate(request);
             var entity = _mapper.Map<Domain.Entities.User>(request);
@@ -41,7 +41,7 @@ namespace MeuLivroDeReceitas.Application.UseCases.User.SignUp
             };
         }
 
-        public async Task Validate(RequestCreateUserJson request)
+        public async Task Validate(CreateUserRequestJson request)
         {
             //criando uma instancia do validator
             var validator = new SignUpUserValidator();
