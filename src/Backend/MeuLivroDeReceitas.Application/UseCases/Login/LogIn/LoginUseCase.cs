@@ -25,7 +25,7 @@ namespace MeuLivroDeReceitas.Application.UseCases.Login.LogIn
         {
             await Validate(request);
 
-            var user = await _readOnlyRepository.Login(request.Email);
+            var user = await _readOnlyRepository.FindByEmail(request.Email);
 
             var verify = BCrypt.Net.BCrypt.EnhancedVerify(request.Password, user.Password);
 
@@ -45,7 +45,7 @@ namespace MeuLivroDeReceitas.Application.UseCases.Login.LogIn
             };
         }
 
-        public async Task Validate(LoginRequestJson loginRequest)
+        public Task Validate(LoginRequestJson loginRequest)
         {
             var validate = new LoginValidator();
 
@@ -56,6 +56,8 @@ namespace MeuLivroDeReceitas.Application.UseCases.Login.LogIn
                 var errorMessage = result.Errors.Select(error => error.ErrorMessage).ToList();
                 throw new ValidationErrorsExceptions(errorMessage);
             }
+
+            return Task.CompletedTask;
         }
     }
 }

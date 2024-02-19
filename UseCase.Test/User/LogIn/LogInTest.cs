@@ -48,7 +48,7 @@ namespace UseCase.Test.User.LogIn
             };
 
             //dizendo que ao chamar a função de Login, preciso que seja retornado esse usuário criado a cima
-            _ReadOnlyRepository.Setup(i => i.Login(request.Email)).ReturnsAsync(user);
+            _ReadOnlyRepository.Setup(i => i.FindByEmail(request.Email)).ReturnsAsync(user);
 
             //ao executar a verificação de senha dos usuários, acima foi setado o usuário a ser comparado.
             var useCase = await _LogInUseCase.Execute(request);
@@ -82,7 +82,7 @@ namespace UseCase.Test.User.LogIn
                 Email = "user@gmail.com"
             };
 
-            _ReadOnlyRepository.Setup(i => i.Login(request.Email)).ReturnsAsync(user);
+            _ReadOnlyRepository.Setup(i => i.FindByEmail(request.Email)).ReturnsAsync(user);
 
             Func<Task> result = async () => { await _LogInUseCase.Execute(request); };
 

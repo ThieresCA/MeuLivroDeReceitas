@@ -22,7 +22,7 @@ namespace MeuLivroDeReceitas.Application.UseCases.UpdatePassword
         public async Task Execute(UpdatePasswordRequestJson request)
         {
             var userRetrived = await _loggedInUser.RetrieveUser();
-            _repository.Update();
+            _repository.Update(userRetrived);
         }
     }
 }

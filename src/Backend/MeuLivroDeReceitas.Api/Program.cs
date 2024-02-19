@@ -33,6 +33,7 @@ builder.Services.AddScoped(provider => new AutoMapper.MapperConfiguration(config
     config.AddProfile(new AutoMapperConfiguration());
 }).CreateMapper());
 
+//dependencia para acessar o HTTPContext - necessário para verificar o token de acesso
 builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();

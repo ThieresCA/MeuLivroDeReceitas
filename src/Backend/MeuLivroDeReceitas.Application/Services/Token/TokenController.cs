@@ -45,7 +45,13 @@ namespace MeuLivroDeReceitas.Application.Services.Token
             return tokenHandler.WriteToken(securityToken);
         }
 
-        public void TokenValidation(string token)
+        public string RecoverEmail(string token)
+        {
+            var claim = TokenValidation(token);
+            return claim.FindFirst(EmailAlias).Value;
+        }
+
+        public ClaimsPrincipal TokenValidation(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 
@@ -58,7 +64,8 @@ namespace MeuLivroDeReceitas.Application.Services.Token
                 ValidateAudience = false
             };
             //validando o token
-            tokenHandler.ValidateToken(token, validationParams, out _);
+            var claim = tokenHandler.ValidateToken(token, validationParams, out _);
+            return claim;
         }
 
         private SymmetricSecurityKey SinmetricKey()

@@ -27,7 +27,7 @@ namespace MeuLivroDeReceitas.Infrastructure.Data.Repository
             }
         }
 
-        public async Task<User> Login(string email)
+        public async Task<User> FindByEmail(string email)
         {
             //vamos adicionar o no-tracking pq essa é uma query só de leitura, então para que seja mais rapido será
             //adicionado o no-tracking(recomendação da microsoft)

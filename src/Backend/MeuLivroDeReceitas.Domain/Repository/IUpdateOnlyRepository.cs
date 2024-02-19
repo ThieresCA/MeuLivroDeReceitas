@@ -9,6 +9,6 @@ namespace MeuLivroDeReceitas.Domain.Repository
 {
     public interface IUpdateOnlyRepository
     {
-        Task Update(User user);
+        void Update(User user);
     }
 }
