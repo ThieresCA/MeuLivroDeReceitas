@@ -36,6 +36,8 @@ builder.Services.AddScoped(provider => new AutoMapper.MapperConfiguration(config
 //dependencia para acessar o HTTPContext - necessário para verificar o token de acesso
 builder.Services.AddHttpContextAccessor();
 
+builder.Services.AddScoped<AuthenticatedUserAttribute>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

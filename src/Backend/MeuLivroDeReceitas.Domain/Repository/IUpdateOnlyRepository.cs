@@ -10,5 +10,7 @@ namespace MeuLivroDeReceitas.Domain.Repository
     public interface IUpdateOnlyRepository
     {
         void Update(User user);
+
+        Task<User> FindById(long id);
     }
 }

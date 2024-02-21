@@ -39,9 +39,17 @@ namespace MeuLivroDeReceitas.Infrastructure.Data.Repository
             return await _context.Users.AnyAsync(e => e.Email.Equals(email));
         }
 
+        public async Task<User> FindById(long id)
+        {
+            //repetição de código, porém como essa função vai ser usada para alterar um usuário,
+            //então o AsNoTracking foi removido.
+            return await _context.Users.FirstOrDefaultAsync(c => c.Id.Equals(id));
+        }
+
         public void Update(User user)
         {
             _context.Users.Update(user);
+            _context.SaveChanges();
         }
     }
 }

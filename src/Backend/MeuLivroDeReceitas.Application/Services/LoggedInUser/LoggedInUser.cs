@@ -11,10 +11,11 @@ namespace MeuLivroDeReceitas.Application.Services.LogedInUser
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly TokenController _tokenController;
         private readonly IUserReadOnlyRepository _userReadOnlyRepository;
-        public LoggedInUser(IHttpContextAccessor httpContextAccessor, IUserReadOnlyRepository userReadOnlyRepository)
+        public LoggedInUser(IHttpContextAccessor httpContextAccessor, IUserReadOnlyRepository userReadOnlyRepository, TokenController tokenController)
         {
             _contextAccessor = httpContextAccessor;
             _userReadOnlyRepository = userReadOnlyRepository;
+            _tokenController = tokenController;
         }
         public async Task<User> RetrieveUser()
         {
@@ -26,7 +27,7 @@ namespace MeuLivroDeReceitas.Application.Services.LogedInUser
             //e o Trim é pra remover o espaço das pontas da string
             var token = auth["Bearer".Length..].Trim();
 
-            var userEmail = _tokenController.RecoverEmail(auth);
+            var userEmail = _tokenController.RecoverEmail(token);
             
             if (userEmail != null)
             {
