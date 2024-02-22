@@ -16,7 +16,6 @@ namespace MeuLivroDeReceitas.Application.UseCases.UpdatePassword
     {
         private ILoggedInUser _loggedInUser;
         private IUpdateOnlyRepository _repository;
-        private UpdatePasswordValidator _validator;
         public UpdatePasswordUseCase(IUpdateOnlyRepository repository, ILoggedInUser loggedInUser)
         {
             _loggedInUser = loggedInUser;
@@ -40,11 +39,12 @@ namespace MeuLivroDeReceitas.Application.UseCases.UpdatePassword
         {
             var validate = new UpdatePasswordValidator();
 
-            var verify = BCrypt.Net.BCrypt.EnhancedVerify(request.Password, user.Password);
+            var verify = BCrypt.Net.BCrypt.EnhancedVerify(request.NewPassword, user.Password);
 
-            if (!verify)
+            if (verify)
             {
-                throw new Exception(ResourceErrorMessage.SAME_PASSWORD);
+                List<string> errors = new List<string>() { ResourceErrorMessage.SAME_PASSWORD };
+                throw new ValidationErrorsExceptions(errors);
             }
 
             var response = validate.Validate(request.NewPassword);
