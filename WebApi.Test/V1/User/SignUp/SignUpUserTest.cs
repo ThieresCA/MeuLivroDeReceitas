@@ -11,6 +11,7 @@ namespace WebApi.Test.V1.User.SignUp
     {
         private const string METODO = "user";
 
+
         public SignUpUserTest(MeuLivroDeReceitasWebApplicationFactory<Program> factory) : base(factory)
         {
 
@@ -23,7 +24,7 @@ namespace WebApi.Test.V1.User.SignUp
             {
                 Name = "teste",
                 Email = "teste@gmail.com",
-                Password = "123456",
+                Password = "string3",
                 Phone = "27 9 9123-4587"
             };
 
